@@ -32,7 +32,7 @@
 * [Demo安装](http://www.camera360.com/filter/adrdownload.html?k=hylVnDMi62bhog%2BED1c819SPZ0zgYKpjT4sDY6IOLWs%3D)
 * [Demo源码](https://github.com/pinguo/PGSkinPrettifyEngineDemo-Android)
 * [API文档](README_Android.md)
-* [SDK引擎](https://github.com/pinguo/PGSkinPrettifyEngineDemo-Android/tree/master/PGSkinPrettifyDemo-Android/PGSkinPrettifyEngine)
+* [SDK引擎](https://github.com/pinguo/PGSkinPrettifyEngineDemo-Android/tree/master/app/src/main/java/us/pinguo/pgskinprettifyengine)
 
 ## 性能测试
 视频美肤引擎的处理性能测试为：从数据输入引擎开始，至引擎输出数据结束(不包括屏幕显示)。
