@@ -1,6 +1,5 @@
 #PGSkinPrettifyEngine(Android版)
-品果视频美肤引擎Android版
-
+品果视频美肤引擎Android版，最低SDK版本15
 ###一、使用概览：
 品果视频美肤引擎（PGSkinPrettifyEngine）的总体使用步骤分为四个部分：
 
