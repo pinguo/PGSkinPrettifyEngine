@@ -1,14 +1,15 @@
 #PGSkinPrettifyEngine(Android版)
 品果视频美肤引擎Android版，最低SDK版本15
 ###一、使用概览：
-品果视频美肤引擎（PGSkinPrettifyEngine）的总体使用步骤分为四个部分：
+品果视频美肤引擎（PGSkinPrettifyEngine）的总体使用步骤分为五个部分：
 
   * [创建并初始化引擎](#创建并初始化引擎)
   * [设置相关参数并进行美肤处理](#设置相关参数并进行美肤处理)
   * [显示及获取美肤结果](#显示及获取美肤结果)
   * [销毁引擎](#销毁引擎)
   * [接入步骤](#接入步骤)
-以下对这四个部分分别进行详细的介绍。
+  
+以下对这五个部分分别进行详细的介绍。
 
 ###二、<b id='创建并初始化引擎'>创建并初始化引擎</b>
 ####2.1 相关接口
@@ -221,3 +222,90 @@
 	// 销毁美肤引擎
 	m_pPGSkinPrettifyEngine.DestroyEngine();
 	m_pPGSkinPrettifyEngine = null;
+
+###六、<b id='接入步骤'>接入步骤</b>
+####6.1 申请key	
+    联系liuzhaohui@camera360.com
+####6.2 导入相关文件	
+
+	第一步：新建路径为：us.pinguo.pgskinprettifyengine的package
+	放入文件：PGGLContextManager.java和PGSkinPrettifyEngine.java
+	（路径不能变，否则so会找不到文件）
+	第二步：在libs->armeabi-v7中导入so：libPGSkinPrettifyEngine.so
+	
+####6.2初始化SDK
+
+	m_pPGSkinPrettifyEngine = new PGSkinPrettifyEngine();
+	m_pGlContext = new PGGLContextManager();
+	m_pGlContext.initGLContext(0);
+
+
+	//相机初始化完成后
+	//如果用的监听是SurfaceTextureCallback则不需要pGlContext及其相关的所有代码
+	m_pGlContext.addSurface(holder);
+	m_pGlContext.activateOurGLContext();
+	m_iCameraTextureID = m_pGlContext.createGLExtTexture();
+	m_pCameraTexture = new SurfaceTexture(m_iCameraTextureID);
+
+	// 初始化引擎（一个pPGSkinPrettifyEngine生命周期内只允许初始化一次）
+	m_pPGSkinPrettifyEngine.InitialiseEngine(this,SDK_KEY,false);
+	m_pPGSkinPrettifyEngine.SetSizeForAdjustInput(m_sCameraPreviewFrameSize.height, m_sCameraPreviewFrameSize.width);
+	m_pPGSkinPrettifyEngine.SetOrientForAdjustInput(PGSkinPrettifyEngine.PG_Orientation.PG_OrientationRightRotate90);
+	m_pPGSkinPrettifyEngine.SetOutputFormat(PGSkinPrettifyEngine.PG_PixelFormat.PG_Pixel_BGRA);
+	m_pPGSkinPrettifyEngine.SetOutputOrientation(PGSkinPrettifyEngine.PG_Orientation.PG_OrientationFlippedMirrored);
+
+	//控制整体的美肤强度 0~100（可动态调用）
+	m_pPGSkinPrettifyEngine.SetSkinSoftenStrength(mnSoftenValue);
+	//控制滤镜效果的程度（可动态调用）
+	//mfPinkValue   粉嫩程度 0~1.0f
+	//mfWhitenValue 白皙程度 0~1.0f
+	//mfReddenValue 红润程度 0~1.0f
+	m_pPGSkinPrettifyEngine.SetSkinColor(mfPinkValue, mfWhitenValue, mfReddenValue);
+	
+####6.3数据处理
+
+	//帧处理
+	//如果输入的是YV12格式的字节流  
+	m_pPGSkinPrettifyEngine.SetInputFrameByYV12(data,m_sCameraPreviewFrameSize.width, m_sCameraPreviewFrameSize.height);
+	m_pPGSkinPrettifyEngine.RunEngine();
+	m_pPGSkinPrettifyEngine.GetOutputToScreen(m_iSurfaceWidth, m_iSurfaceHeight);
+	m_pGlContext.presentSurface();
+	//得到处理后的字节流
+	m_pPGSkinPrettifyEngine.SkinSoftenGetResult();
+
+
+
+	//如果输入的是texture id
+	m_pPGSkinPrettifyEngine.SetInputFrameByTexture(m_iCameraTextureID, m_sCameraPreviewFrameSize.width, 			m_sCameraPreviewFrameSize.height);
+	m_pPGSkinPrettifyEngine.RunEngine();
+	m_pPGSkinPrettifyEngine.GetOutputToScreen(m_iSurfaceWidth, m_iSurfaceHeight);
+	m_pGlContext.presentSurface();
+	//得到处理后的texture id
+	m_pPGSkinPrettifyEngine.GetOutputTextureID();
+	
+####6.4销毁
+
+	if (m_pGlContext!=null)
+		m_pGlContext.activateOurGLContext();
+	// 销毁 PGHelixEngine
+	if (m_pPGSkinPrettifyEngine != null)
+	{
+    		m_pPGSkinPrettifyEngine.DestroyEngine();
+    		m_pPGSkinPrettifyEngine = null;
+    		m_bIsFirstFrame = true;
+	}
+
+	// 销毁 GL Texture
+	if (m_pCameraTexture != null)
+	{
+    		m_pGlContext.deleteGLExtTexture(m_iCameraTextureID);
+    		m_pCameraTexture.release();
+   		 m_pCameraTexture = null;
+	}
+
+	// 销毁 GL Surface
+	if (m_pGlContext != null)
+	{
+    		Log.i(LOG_TAG, "releasing window surface");
+    		m_pGlContext.releaseSurface();
+	}
