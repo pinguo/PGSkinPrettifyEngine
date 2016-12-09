@@ -251,11 +251,31 @@
 	m_pPGSkinPrettifyEngine.InitialiseEngine(this,SDK_KEY,false);
 	m_pPGSkinPrettifyEngine.SetSizeForAdjustInput(m_sCameraPreviewFrameSize.height, m_sCameraPreviewFrameSize.width);
 	m_pPGSkinPrettifyEngine.SetOrientForAdjustInput(PGSkinPrettifyEngine.PG_Orientation.PG_OrientationRightRotate90);
-	m_pPGSkinPrettifyEngine.SetOutputFormat(PGSkinPrettifyEngine.PG_PixelFormat.PG_Pixel_BGRA);
-	m_pPGSkinPrettifyEngine.SetOutputOrientation(PGSkinPrettifyEngine.PG_Orientation.PG_OrientationFlippedMirrored);
+	
+	//设置输出格式 
+	//PG_Pixel_RGBA(0),	/*输出 RGBA 格式 */
+	//PG_Pixel_BGRA(1),	/*输出 BGRA 格式 */
+	//PG_Pixel_NV21(2),	/*输出 YUV420 格式(NV21格式) */
+        //PG_Pixel_YV12(3);       /*输出 YUV420 格式(YV12格式) */
+        m_pPGSkinPrettifyEngine.SetOutputFormat(PGSkinPrettifyEngine.PG_PixelFormat.PG_Pixel_BGRA);
+	
+	
+	//设置输出方向
+	//PG_OrientationNormal(0),            /* 原样输出 */
+        //PG_OrientationRightRotate90(1),     /* 右旋90度输出（注意改变输出宽高） */
+        //PG_OrientationRightRotate180(2),    /* 右旋180度输出 */
+        //PG_OrientationRightRotate270(3),    /* 右旋270度输出（注意改变输出宽高） */
+        //PG_OrientationFlippedMirrored(4),   /* 翻转并镜像输出 */
+        //PG_OrientationFlipped(5),           /* 上下翻转输出 */
+        //PG_OrientationMirrored(6),          /* 左右镜像输出 */
+        //PG_OrientationRightRotate90Mirrored(7), /*右旋90并左右镜像输出*/
+        //PG_OrientationRightRotate180Mirrored(8), /*右旋180并左右镜像输出*/
+        //PG_OrientationRightRotate270Mirrored(9); /*右旋270并左右镜像输出*/
+        m_pPGSkinPrettifyEngine.SetOutputOrientation(PGSkinPrettifyEngine.PG_Orientation.PG_OrientationFlippedMirrored);
 
 	//控制整体的美肤强度 0~100（可动态调用）
 	m_pPGSkinPrettifyEngine.SetSkinSoftenStrength(mnSoftenValue);
+	
 	//控制滤镜效果的程度（可动态调用）
 	//mfPinkValue   粉嫩程度 0~1.0f
 	//mfWhitenValue 白皙程度 0~1.0f
@@ -270,16 +290,18 @@
 	m_pPGSkinPrettifyEngine.RunEngine();
 	m_pPGSkinPrettifyEngine.GetOutputToScreen(m_iSurfaceWidth, m_iSurfaceHeight);
 	m_pGlContext.presentSurface();
+	
 	//得到处理后的字节流
 	m_pPGSkinPrettifyEngine.SkinSoftenGetResult();
-
-
-
+	
+	
+	
 	//如果输入的是texture id
 	m_pPGSkinPrettifyEngine.SetInputFrameByTexture(m_iCameraTextureID, m_sCameraPreviewFrameSize.width, 			m_sCameraPreviewFrameSize.height);
 	m_pPGSkinPrettifyEngine.RunEngine();
 	m_pPGSkinPrettifyEngine.GetOutputToScreen(m_iSurfaceWidth, m_iSurfaceHeight);
 	m_pGlContext.presentSurface();
+	
 	//得到处理后的texture id
 	m_pPGSkinPrettifyEngine.GetOutputTextureID();
 	
