@@ -1,16 +1,16 @@
 #PGSkinPrettifyEngine(Android接入流程)
 品果视频美肤引擎Android版，最低SDK版本15
 
-1.1 申请key	
-    联系liuzhaohui@camera360.com
-1.2 导入相关文件	
+#####1.1 申请key	
+        联系liuzhaohui@camera360.com
+#####1.2 导入相关文件	
 
 	第一步：新建路径为：us.pinguo.pgskinprettifyengine的package
 	放入文件：PGGLContextManager.java和PGSkinPrettifyEngine.java
 	（路径不能变，否则so会找不到文件）
 	第二步：在libs->armeabi-v7中导入so：libPGSkinPrettifyEngine.so
 	
-1.3初始化SDK
+#####1.3初始化SDK
 
 	m_pPGSkinPrettifyEngine = new PGSkinPrettifyEngine();
 	m_pGlContext = new PGGLContextManager();
@@ -59,7 +59,7 @@
 	//mfReddenValue 红润程度 0~1.0f
 	m_pPGSkinPrettifyEngine.SetSkinColor(mfPinkValue, mfWhitenValue, mfReddenValue);
 	
-1.4数据处理
+#####1.4数据处理
 
 	//帧处理
 	//如果输入的是YV12格式的字节流  
@@ -82,7 +82,7 @@
 	//得到处理后的texture id
 	m_pPGSkinPrettifyEngine.GetOutputTextureID();
 	
-  1.5销毁
+#####1.5销毁
 
 	if (m_pGlContext!=null)
 		m_pGlContext.activateOurGLContext();
