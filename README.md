@@ -32,6 +32,7 @@
 * [Demo安装](http://www.camera360.com/filter/adrdownload.html?k=hylVnDMi62bhog%2BED1c819SPZ0zgYKpjT4sDY6IOLWs%3D)
 * [Demo源码](https://github.com/pinguo/PGSkinPrettifyEngineDemo-Android)
 * [API文档](README_Android.md)
+* [SDK接入流程](Android_接入流程.md)
 * [SDK引擎](https://github.com/pinguo/PGSkinPrettifyEngineDemo-Android/tree/master/app/src/main/java/us/pinguo/pgskinprettifyengine)
 
 ## 性能测试
