@@ -62,13 +62,13 @@
 ## 联系我们
 
 ### 商务合作及授权
-<code>
+<p>
 杨颂 Amiel Yang 
 商务合作总监 Director of Business Cooperation
 Mobile：18615700177  13980706252
 QQ:2851258101  
 E_mail:yangsong@camera360.com
-</code>
+</p>
 ### 技术支持
 Email: liuzhaohui@camera360.com 
 
