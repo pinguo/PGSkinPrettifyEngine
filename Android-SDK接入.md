@@ -10,7 +10,7 @@
 	（路径不能变，否则so会找不到文件）
 	第二步：在libs->armeabi-v7中导入so：libPGSkinPrettifyEngine.so
 	
-#####1.3初始化SDK
+#####1.3初始化SDK（engin的初始化和数据处理必须在同一个线程中）
 
 	m_pPGSkinPrettifyEngine = new PGSkinPrettifyEngine();
 	m_pGlContext = new PGGLContextManager();
