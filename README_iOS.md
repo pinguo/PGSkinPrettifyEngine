@@ -200,6 +200,26 @@
  	*/
 	- (void) PGOglViewSizeChanged;
 
+    /**
+    * 描述：设置一个矩阵用于调整输入帧，使用此方法意味着将输入的预处理变换操作交由调用者控制，调用此方法后会影响SetOrientForAdjustInput产生的设置
+    * 返回值：无
+    * 参数：pMatrix - MVP矩阵
+    */
+    - (void) SetMatrixForAdjustInput:(float *)pMatrix;
+
+    /**
+    * 描述：设置一个矩阵用于调节输出，使用此方法意味着将输出的变换操作交由调用者控制，调用此方法后会影响SetOutputOrientation产生的设置
+    * 返回值：无
+    * 参数：pMatrix - MVP矩阵
+    */
+    - (void) SetMatrixForAdjustOutput:(float *)pMatrix;
+
+    /**
+    * 描述：设置一个矩阵用于控制显示画面的变换
+    * 返回值：成功返回 YES
+    * 参数：pMatrix - MVP矩阵
+    */
+    - (BOOL) PGOglViewSetMVPMatrix:(float *)pMatrix;
 
 ####4.2 接口描述
 #####4.2.1 关于美肤结果获取
