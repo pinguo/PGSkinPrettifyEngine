@@ -44,12 +44,13 @@
 480p（640x480）| 4ms| 7ms| 6ms| 6ms| 4ms
 720p（1280x720）| 5ms| 7ms| 4ms| 5ms| 4ms
 
+* TextureID的方式
 
-分辨率	|	三星s3 | MI2 | 三星SM-G9280  
+分辨率	|	vivo x7 | 三星s7 | 三星note3  
 :------- |:------|:----- |:----- 
-360p（480x360）| 6ms| 10ms| 8ms
-480p（640x480）| 6ms| 10ms| 8ms
-720p（1280x720）| 6ms| 10ms| 8ms
+480p（640x480）| 2ms| 4ms| 8ms
+720p（1280x720）| 3ms| 3ms| 6ms
+1080p（1920x1080）|3ms| 4ms| 4ms
 
 * 增加了GetSkinPrettifyResult接口调用，获取美肤结果
 
