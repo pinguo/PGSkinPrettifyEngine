@@ -88,7 +88,7 @@
 ### 声明
 美颜SDK是一款付费产品，在产品里使用前需要联系商务，签署协议并获取对应的Key。
 
-为了更好的为您服务，请填写一些[基本信息](#www.camera360.com/filter/apply.html)。
+为了更好的为您服务，请填写一些[基本信息](http://www.camera360.com/filter/apply.html)。
 
 ### 商务合作及授权 Authorization
 
