@@ -24,16 +24,14 @@
 ## 支持的平台
 ### iOS
 * [Demo安装](http://www.camera360.com/filter/download.html?k=5xdNAApspj8DcVH2T9owooKC%2Bwe9h2u4jtDbHGbhWWsqaIU6nks3pw%3D%3D)
-* [Demo源码] (#联系我们)
+* [SDK引擎及Demo源码请联系我们](#联系我们) 
 * [API文档](README_iOS.md)
-* [SDK引擎](https://github.com/pinguo/PGSkinPrettifyEngineDemo-iOS/tree/master/PGSkinPrettifyDemo-iOS/PGSkinPrettifyEngine)
 
 ### Android
 * [Demo安装](http://www.camera360.com/filter/adrdownload.html?k=hylVnDMi62bhog%2BED1c819SPZ0zgYKpjT4sDY6IOLWs%3D)
-* [Demo源码](https://github.com/pinguo/PGSkinPrettifyEngineDemo-Android)
+* [SDK引擎及Demo源码请联系我们](#联系我们) 
 * [API文档](README_Android.md)
 * [SDK接入流程](Android-SDK接入.md)
-* [SDK引擎](https://github.com/pinguo/PGSkinPrettifyEngineDemo-Android/tree/master/app/src/main/java/us/pinguo/pgskinprettifyengine)
 
 ## 性能测试
 视频美肤引擎的处理性能测试为：从数据输入引擎开始，至引擎输出数据结束(不包括屏幕显示)。
@@ -86,7 +84,7 @@
 480p（640x480）| 28%| 25%| 31%
 720p（1280x720）| 28%| 25%| 32%
 
-## 联系我们 <id="联系我们">
+## <b id='联系我们'>联系我们</b> 
 ### 声明
 美颜SDK是一款付费产品，在产品里使用前需要联系商务，签署协议并获取对应的Key。
 
@@ -100,6 +98,4 @@
 Email: liuzhaohui@camera360.com 
 
 QQ: 165202938
-
-
 
