@@ -2,7 +2,7 @@
 品果视频美肤引擎Android版，最低SDK版本15
 
 #####1.1 申请key	
-        联系liuzhaohui@camera360.com
+        http://www.camera360.com/filter/apply.html
 #####1.2 导入相关文件	
 
 	第一步：新建路径为：us.pinguo.pgskinprettifyengine的package
