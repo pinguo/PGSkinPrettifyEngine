@@ -21,14 +21,17 @@
 	step2: 初始化相机 监听surfaceCreated 在surfaceCreated回调中初始化egl	
 	m_pGlContext = new PGGLContextManager();
 	m_pGlContext.initGLContext(0);
-
-	//如果用的监听是SurfaceTextureCallback则不需要pGlContext及其相关的所有代码
+	
+	//构造surface 如果不需要渲染，仅做数据处理，addSurface参数设置为null， m_pGlContext.addSurface(null)；	
 	m_pGlContext.addSurface(holder);
+	
+	//将渲染上下文绑定到渲染面
 	m_pGlContext.activateOurGLContext();
 	
 	m_iCameraTextureID = m_pGlContext.createGLExtTexture();
 	m_pCameraTexture = new SurfaceTexture(m_iCameraTextureID);
-	把生成的SurfaceTexture对象设置了输出载体		
+	
+	//把生成的SurfaceTexture对象设置了输出载体		
 	m_pCamera.setPreviewTexture(m_pCameraTexture);
 	m_pCamera.startPreview();
 	
