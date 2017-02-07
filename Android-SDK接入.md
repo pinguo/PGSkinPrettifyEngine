@@ -1,30 +1,41 @@
-#PGSkinPrettifyEngine(Android接入流程)
-品果视频美肤引擎Android版，最低SDK版本15
+##PGSkinPrettifyEngine SDK接入流程说明(Android版)
+####品果视频美肤引擎Android版，最低SDK版本15
+####采用授权key的方式，一个key支持3个包名
 
 #####1.1 申请key	
-        http://www.camera360.com/filter/apply.html
+        http://www.camera360.com/filter/apply.html
+	
+	
 #####1.2 导入相关文件	
 
-	第一步：新建路径为：us.pinguo.pgskinprettifyengine的package
+	第一步：项目根目录下新建：us.pinguo.pgskinprettifyengine的package
 	放入文件：PGGLContextManager.java和PGSkinPrettifyEngine.java
-	（路径不能变，否则so会找不到文件）
+	（注意：路径不能变，否则so会找不到文件）
 	第二步：在libs->armeabi-v7中导入so：libPGSkinPrettifyEngine.so
 	
 #####1.3初始化SDK（engin的初始化和数据处理必须在同一个线程中）
 
+	step1:在onResume中实例化PGSkinPrettifyEngine
 	m_pPGSkinPrettifyEngine = new PGSkinPrettifyEngine();
+	
+	step2: 初始化相机 监听surfaceCreated 在surfaceCreated回调中初始化egl	
 	m_pGlContext = new PGGLContextManager();
 	m_pGlContext.initGLContext(0);
 
-
-	//相机初始化完成后
 	//如果用的监听是SurfaceTextureCallback则不需要pGlContext及其相关的所有代码
 	m_pGlContext.addSurface(holder);
 	m_pGlContext.activateOurGLContext();
+	
 	m_iCameraTextureID = m_pGlContext.createGLExtTexture();
 	m_pCameraTexture = new SurfaceTexture(m_iCameraTextureID);
-
-	// 初始化引擎（一个pPGSkinPrettifyEngine生命周期内只允许初始化一次）
+	把生成的SurfaceTexture对象设置了输出载体		
+	m_pCamera.setPreviewTexture(m_pCameraTexture);
+	m_pCamera.startPreview();
+	
+	step3:在onPreviewFrame中对预览帧数据进行处理		
+	
+	// 初始化引擎（一个pPGSkinPrettifyEngine生命周期内只允许初始化一次）	
+	// SDK_KEY 申请链接 http://www.camera360.com/filter/apply.html	
 	m_pPGSkinPrettifyEngine.InitialiseEngine(this,SDK_KEY,false);
 	m_pPGSkinPrettifyEngine.SetSizeForAdjustInput(m_sCameraPreviewFrameSize.height, m_sCameraPreviewFrameSize.width);
 	m_pPGSkinPrettifyEngine.SetOrientForAdjustInput(PGSkinPrettifyEngine.PG_Orientation.PG_OrientationRightRotate90);
@@ -108,3 +119,17 @@
     		Log.i(LOG_TAG, "releasing window surface");
     		m_pGlContext.releaseSurface();
 	}
+	
+#####1.6常见问题
+	
+	*1：初始化engin时，程序crash。	
+	产生原因：PGGLContextManager.java和PGSkinPrettifyEngine.java需要放到指定路径否则so会找不到。
+	
+	*2：预览帧数据的处理后无美肤效果。	
+	产生原因：1.engin的初始化和数据处理必须在同一个线程中。2.sdk授权key失效。	
+	
+	*3：m_pPGSkinPrettifyEngine.SkinSoftenGetResult返回byteBuffer 从缓冲器中拿bute[]时error
+	参考方案：ByteBuffer buffer = m_pPGSkinPrettifyEngine.SkinSoftenGetResult();
+		buffer.clear();
+		bytes = new byte[buffer.capacity()];
+		buffer.get(bytes,0,bytes.length);
