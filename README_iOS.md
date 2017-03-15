@@ -1,8 +1,7 @@
 # PGSkinPrettifyEngine(iOS版)
 品果视频美肤引擎iOS版
 
-
-###一、使用概览：
+## 1 使用概览：
 品果视频美肤引擎(PGSkinPrettifyEngine)的总体使用步骤分为四个部分：
 
 * [创建并初始化引擎](#创建并初始化引擎)。 
@@ -12,8 +11,8 @@
 
 以下对这四个部分分别进行详细的介绍。
 
-###二、<b id='创建并初始化引擎'>创建并初始化引擎</b>
-####2.1 相关接口
+## 2 <b id='创建并初始化引擎'>创建并初始化引擎</b>
+### 2.1 相关接口
 
 	/**
  	* 描述：初始化引擎
@@ -24,10 +23,10 @@
 	- (BOOL) InitEngineWithKey:(NSString*) pKey;
 
 
-####2.2 接口描述
+### 2.2 接口描述
 此接口会初始化引擎必须的所有组件，包括创建 OpenGL ES 上下文及各种缓冲区等等。
 
-####2.3 调用示例
+### 2.3 调用示例
 
 	// 创建美肤引擎对象
 	PGSkinPrettifyEngine* m_pPGSkinPrettifyEngine = [[PGSkinPrettifyEngine alloc] init];
@@ -36,8 +35,8 @@
 	[m_pPGSkinPrettifyEngine InitEngineWithKey:pKey];
 
 
-###三、<b id='设置相关参数并进行美肤处理'>设置相关参数并进行美肤处理</b>
-####3.1 相关接口
+## 3 <b id='设置相关参数并进行美肤处理'>设置相关参数并进行美肤处理</b>
+### 3.1 相关接口
 
 	/**
  	* 描述：设置输入帧
@@ -103,11 +102,11 @@
 	- (BOOL) RunEngine;
 
 
-####3.2 接口描述
-#####3.2.1 关于人脸信息
+### 3.2 接口描述
+#### 3.2.1 关于人脸信息
 为了更细致和精确的美肤效果，所以在使用 SetInputFrameByCVImage 接口设置输入图像时，引擎需要使用当前输入帧中的人脸信息，iOS 系统本身有提供人脸框检测的功能，具体使用方法可参考完整 Demo 源码，也可以使用第三方人脸识别库进行识别，但需要转换为 iOS 系统所给的人脸坐标格式后再传给引擎。
 
-#####3.2.2 关于输出方向
+#### 3.2.2 关于输出方向
 引擎提供了两个用于调整方向的接口，SetOrientForAdjustInput 用于调整输入帧的方向，此接口会影响到 PGOglView 所显示的内容，及输出缓冲区中的内容。另外，由于坐标系原点的不同，输出缓冲区中的帧可能和显示的不一样，所以要想显示的和输出的一致，还需要使用 SetOutputOrientation 接口对输出缓冲区进行调整。这两个接口的参数类型为方向枚举，引擎目前提供了如下七个方向：
 
 	// 用于控制输出旋转方向的枚举
@@ -123,7 +122,7 @@
 	} PGOrientation;
 
 
-#####3.3.3 关于输出格式
+#### 3.2.3 关于输出格式
 引擎目前支持3种输出格式，以方便后续的视频编码，分别为如下三种格式
 
 	// 用于控制输出帧数据格式的枚举
@@ -134,7 +133,7 @@
     	PGPixelFormatYUV420     // 输出 kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange, 内部数据为 YUV420
 	} PGPixelFormat;
 
-####3.3 调用示例
+### 3.3 调用示例
 
 	// 设置美肤引擎输出的帧宽高
 	[m_pPGSkinPrettifyEngine SetSizeForAdjustInput:CGSizeMake(size.width, size.height)];
@@ -155,8 +154,8 @@
 	// 运行引擎，进行美肤处理
 	[m_pPGSkinPrettifyEngine RunEngine];
 
-###四、<b id='显示及获取美肤结果'>显示及获取美肤结果</b>
-####4.1 相关接口
+## 4 <b id='显示及获取美肤结果'>显示及获取美肤结果</b>
+### 4.1 相关接口
 
 	/** 
  	* 描述：设置美肤结果的输出回调
@@ -221,14 +220,14 @@
     */
     - (BOOL) PGOglViewSetMVPMatrix:(float *)pMatrix;
 
-####4.2 接口描述
-#####4.2.1 关于美肤结果获取
+### 4.2 接口描述
+#### 4.2.1 关于美肤结果获取
 引擎提供了两种获取美肤输出的方式，一种是通过 SetSkinPrettifyResultDelegate 接口设置一个回调，当引擎完成了一帧美肤后，会调用所设置的回调，传入美肤结果。另一种是通过 GetSkinPrettifyResult 主动获取美肤结果缓冲区，此缓冲区的具体格式通过 SetOutputFormat 接口设置，外部无需释放所返回的缓冲区，引擎会自行管理。
 
-#####4.2.2 关于美肤预览
+#### 4.2.2 关于美肤预览
 预览美肤的方式也有两种，一种是通过引擎提供的 PGOglViewCreateWithFrame 接口创建一个 UIView ，并添加到 App 的 View 层级中，当有美肤结果后，调用 PGOglViewPresent 可将美肤结果呈现到 View 中，外部也无需释放此 View，引擎会自行管理。另一种方式是，通过 4.2.1 中的方式获取到缓冲区，然后开发者自行将此缓冲区显示出来。 
 
-####4.3 调用示例
+### 4.3 调用示例
 
 	CVPixelBufferRef pResultBuffer;
 	// 主动获取输出结果
@@ -239,8 +238,8 @@
 	[m_pPGSkinPrettifyEngine PGOglViewPresent];
 
 
-###五、<b id='销毁引擎'>销毁引擎</b>
-####5.1 相关接口
+## 5 <b id='销毁引擎'>销毁引擎</b>
+### 5.1 相关接口
 
 	/**
  	* 描述：销毁引擎
@@ -249,9 +248,10 @@
  	*/
 	- (void) DestroyEngine;
 
-####5.2 接口描述
+### 5.2 接口描述
 销毁引擎时，会释放和删除引擎所创建一切组件，包括各种缓冲区，以及预览 View，所以销毁引擎后，不应该再对这些对象进行任何操作。
-####5.3 调用示例
+
+### 5.3 调用示例
 
 	// 销毁美肤引擎
 	[m_pPGSkinPrettifyEngine DestroyEngine];
